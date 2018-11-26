@@ -2,3 +2,53 @@
 html, body {
 	height: 100%;
 }
+
+body {
+	padding: 20px;
+}
+
+$cellCount: 10;
+$cellSize: 40px;
+// Dirty styling
+.game-grid {
+	width: $cellCount * $cellSize;
+	height: $cellCount * $cellSize;
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	.game-grid__row {
+		display: flex;
+		flex-grow: 1;
+	}
+}
+
+.cell {
+	border: 1px solid black;
+	flex-grow: 1;
+	padding: $cellSize / 10;
+	.cell__dot {
+		border-radius: 50%;
+		background-color: darkslategrey;
+		height: 100%;
+		width: 100%;
+	}
+	&.cell--dead {
+		.cell__dot {
+			visibility: hidden;
+		}
+	}
+}
+
+.game-controls {
+	margin-top: 40px;
+	display: flex;
+	width: $cellCount * $cellSize;
+	button {
+		font-size: 20px;
+		border: 1px solid darkslategrey;
+		background: none;
+		padding: 16px 40px;
+		flex-grow: 1;
+	}
+
+}
