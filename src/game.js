@@ -4,7 +4,7 @@
 	The grid system is transposed so that it is an array of columns
  */
 
-export const isAlive = cell => cell // So that if the cell format changes in the future, we can work with that
+export const isAlive  = cell => cell // So that if the cell format changes in the future, we can work with that
 export const deadCell = () => false;
 export const liveCell = () => true;
 
@@ -27,10 +27,11 @@ export const findNeighbors = grid => (x, y) => {
 	];
 }
 
-export const countAlive = cells => cells.reduce((acc, i) => acc + isAlive(i), 0); // we rely on Boolean to integer conversion
+export const countAlive = cells => cells.reduce((acc, i) => acc + isAlive(i), 0); // we rely on Boolean to integer
+                                                                                  // conversion
 
 export const shouldGridCellLive = grid => (x, y) => {
-	const liveNeighborCount = countAlive(findNeighbors(grid)(x,y))
+	const liveNeighborCount = countAlive(findNeighbors(grid)(x, y))
 
 	// Short logic for the rules for cell lives
 	return liveNeighborCount === 3 || (isAlive(grid[x][y]) && liveNeighborCount === 2)
@@ -45,3 +46,48 @@ export const calculateNextGeneration = grid => {
 		)
 	);
 }
+
+export function* playGameOfLife_(startingGrid) {
+	let currentGrid = startingGrid.map(col => [...col]); // Just a clone for the first one
+	while (true) {
+		yield currentGrid;
+		currentGrid = calculateNextGeneration(currentGrid);
+	}
+}
+
+/* And now, ladies and gentlemen, put your hands together for the main act of the night!
+* Just for the fun of it, have used a es6 generator variant and the regular closure variant
+* */
+
+export function* playGameOfLife_gen(startingGrid) {
+	// Complicated function switch so that the first call gives the original grid,
+	// then we permanently switch to calculating the next grid without any conditions henceforth
+
+	let fn = grid => {
+		fn = calculateNextGeneration
+		return grid.map(col => [...col]) // Just a clone for the first time
+	}
+
+	let currentGrid = startingGrid;
+	while (true) {
+		currentGrid = fn(currentGrid);
+		yield currentGrid;
+	}
+}
+
+export const playGameOfLife = startingGrid => {
+	// Complicated function switch so that the first call gives the original grid,
+	// then we permanently switch to calculating the next grid without any conditions henceforth
+
+	let fn          = grid => {
+		fn = calculateNextGeneration
+		return grid.map(col => [...col]) // Just a clone for the first time
+	}
+	let currentGrid = startingGrid;
+	return () => {
+		currentGrid = fn(currentGrid);
+		return currentGrid;
+	}
+}
+
+export default playGameOfLife

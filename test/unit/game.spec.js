@@ -1,5 +1,12 @@
 import {expect} from './helpers/chai-plugged-in'
-import {calculateNextGeneration, countAlive, findNeighbors, getNeighborsInCol, shouldGridCellLive} from '../../src/game'
+import {
+	calculateNextGeneration,
+	countAlive,
+	findNeighbors,
+	getNeighborsInCol, playGameOfLife,
+	playGameOfLife_gen,
+	shouldGridCellLive
+} from '../../src/game'
 
 describe("Game: the game core", () => {
 
@@ -236,5 +243,87 @@ describe("Game: the game core", () => {
 
 			expect(calculateNextGeneration(grid)).to.eql(expected)
 		})
+	})
+
+	describe("playGameOfLife_gen", () => {
+		it("should return the startingGrid as the first stage", () => {
+			const startingGrid = [
+				[true, false],
+				[false, true]
+			]
+
+			const iterator   = playGameOfLife_gen(startingGrid)
+			expect(iterator.next().value).to.eql(startingGrid);
+		})
+
+		it("should return successive stages of the grid", () => {
+
+			const startingGrid   = [
+				[true, false, true],
+				[false, false, true],
+				[true, true, false]
+			]
+
+			const expectedStages = [
+				startingGrid,
+				[
+					[false, true, false],
+					[true, false, true],
+					[false, true, false]
+				],
+				[
+					[false, true, false],
+					[true, false, true],
+					[false, true, false]
+				]
+			]
+
+			const iterator = playGameOfLife_gen(startingGrid);
+			expectedStages.forEach(expectedStage => {
+				expect(iterator.next().value).to.eql(expectedStage);
+			})
+		})
+
+	})
+
+	describe("playGameOfLife", () => {
+		it("should return the startingGrid as the first stage", () => {
+			const startingGrid = [
+				[true, false],
+				[false, true]
+			]
+
+			const gridStageGenerator   = playGameOfLife(startingGrid)
+			expect(gridStageGenerator()).to.eql(startingGrid);
+		})
+
+		it("should return successive stages of the grid", () => {
+
+			const startingGrid   = [
+				[true, false, true],
+				[false, false, true],
+				[true, true, false]
+			]
+
+			const expectedStages = [
+				startingGrid,
+				[
+					[false, true, false],
+					[true, false, true],
+					[false, true, false]
+				],
+				[
+					[false, true, false],
+					[true, false, true],
+					[false, true, false]
+				]
+			]
+
+			const gridStageGenerator = playGameOfLife(startingGrid);
+			expectedStages.forEach(expectedStage => {
+				expect(gridStageGenerator()).to.eql(expectedStage);
+			})
+		})
+
 	})
 })
