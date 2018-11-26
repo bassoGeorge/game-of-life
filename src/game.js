@@ -35,3 +35,13 @@ export const shouldGridCellLive = grid => (x, y) => {
 	// Short logic for the rules for cell lives
 	return liveNeighborCount === 3 || (isAlive(grid[x][y]) && liveNeighborCount === 2)
 }
+
+export const calculateNextGeneration = grid => {
+	const shouldCellLive = shouldGridCellLive(grid);
+
+	return grid.map((col, x) =>
+		col.map((cell, y) =>
+			shouldCellLive(x, y) ? liveCell() : deadCell()
+		)
+	);
+}

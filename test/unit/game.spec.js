@@ -1,5 +1,5 @@
 import {expect} from './helpers/chai-plugged-in'
-import {countAlive, findNeighbors, getNeighborsInCol, shouldGridCellLive} from '../../src/game'
+import {calculateNextGeneration, countAlive, findNeighbors, getNeighborsInCol, shouldGridCellLive} from '../../src/game'
 
 describe("Game: the game core", () => {
 
@@ -128,100 +128,113 @@ describe("Game: the game core", () => {
 
 	describe("shouldGridCellLive", () => {
 		it("should decide that a live cell with fewer than two live neighbors dies (underpopulation)", () => {
-			const grid          = [
+			const grid       = [
 				[false, false, false],
 				[false, true, false],
 				[false, false, false]
 			]
 			const shouldLive = shouldGridCellLive(grid);
 
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 			grid[0][1] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 		})
 
 		it("should decide that a live cell with more than three live neighbors dies (overpopulation)", () => {
-			const grid          = [
+			const grid       = [
 				[true, true, false],
 				[true, true, false],
 				[true, false, false]
 			]
 			const shouldLive = shouldGridCellLive(grid);
 
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 			grid[1][2] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 			grid[2][1] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 			grid[2][2] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 		})
 
 		it("should decide that a live cell with two or three live neighbors lives on", () => {
-			const grid          = [
+			const grid       = [
 				[true, false, false],
 				[false, true, false],
 				[false, false, true]
 			]
 			const shouldLive = shouldGridCellLive(grid);
 
-			expect(shouldLive(1,1)).to.be.true;
+			expect(shouldLive(1, 1)).to.be.true;
 			grid[2][0] = true;
-			expect(shouldLive(1,1)).to.be.true;
+			expect(shouldLive(1, 1)).to.be.true;
 		})
 
-
 		it("should decide that a dead cell with exactly three live neighbors becomes a live cell", () => {
-			const grid          = [
+			const grid       = [
 				[true, false, false],
 				[true, false, false],
 				[false, false, true]
 			]
 			const shouldLive = shouldGridCellLive(grid);
 
-			expect(shouldLive(1,1)).to.be.true;
+			expect(shouldLive(1, 1)).to.be.true;
 
 		})
 
 		it("should decide that a dead cell with less than three live neighbors remains dead", () => {
-			const grid          = [
+			const grid       = [
 				[false, false, false],
 				[true, false, false],
 				[false, false, true]
 			]
 			const shouldLive = shouldGridCellLive(grid);
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 
 			grid[1][1] = false;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 
 			grid[2][2] = false;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 
 		})
 
 		it("should decide that a dead cell with more than three live neighbors remains dead", () => {
-			const grid          = [
+			const grid       = [
 				[true, true, true],
 				[true, false, false],
 				[false, false, false]
 			]
 			const shouldLive = shouldGridCellLive(grid);
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 
 			grid[1][2] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 			grid[2][0] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 			grid[2][1] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 			grid[2][2] = true;
-			expect(shouldLive(1,1)).to.be.false;
+			expect(shouldLive(1, 1)).to.be.false;
 
 		})
 
+	})
 
+	describe("calculateNextGeneration", () => {
+		it("should correctly calculate the next generation for a 3x3 grid", () => {
+			const grid     = [
+				[true, false, false],
+				[false, true, false],
+				[false, true, false]
+			]
+			const expected = [
+				[false, false, false],
+				[true, true, false],
+				[false, false, false]
+			]
 
-
+			expect(calculateNextGeneration(grid)).to.eql(expected)
+		})
 	})
 })
