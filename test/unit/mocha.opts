@@ -1,0 +1,5 @@
+# Mocha options
+
+--require @babel/register
+--require ./test/unit/helpers/before-tests.js
+--require jsdom-global/register
