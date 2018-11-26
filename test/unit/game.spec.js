@@ -45,7 +45,7 @@ describe("Game: the game core", () => {
 				['T', 'b', 'c'],
 				['e', 'f', 'g']
 			]
-			expect(findNeighbors(grid, 0, 0)).to.eql(['b', 'e', 'f']);
+			expect(findNeighbors(grid)(0, 0)).to.eql(['b', 'e', 'f']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on top right corner", () => {
@@ -53,7 +53,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c', 'T'],
 				['e', 'f', 'g', 'h']
 			]
-			expect(findNeighbors(grid, 0, 3)).to.eql(['c', 'g', 'h']);
+			expect(findNeighbors(grid)(0, 3)).to.eql(['c', 'g', 'h']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on top edge", () => {
@@ -61,7 +61,7 @@ describe("Game: the game core", () => {
 				['a', 'T', 'c', 'd'],
 				['e', 'f', 'g', 'h']
 			]
-			expect(findNeighbors(grid, 0, 1)).to.eql(['a', 'c', 'e', 'f', 'g']);
+			expect(findNeighbors(grid)(0, 1)).to.eql(['a', 'c', 'e', 'f', 'g']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on bottom left corner", () => {
@@ -69,7 +69,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c'],
 				['T', 'f', 'g']
 			]
-			expect(findNeighbors(grid, 1, 0)).to.eql(['a', 'b', 'f']);
+			expect(findNeighbors(grid)(1, 0)).to.eql(['a', 'b', 'f']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on bottom right corner", () => {
@@ -77,7 +77,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c', 'd'],
 				['e', 'f', 'g', 'T']
 			]
-			expect(findNeighbors(grid, 1, 3)).to.eql(['c', 'd', 'g']);
+			expect(findNeighbors(grid)(1, 3)).to.eql(['c', 'd', 'g']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on bottom edge", () => {
@@ -85,7 +85,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c', 'd'],
 				['e', 'T', 'g', 'h']
 			]
-			expect(findNeighbors(grid, 1, 1)).to.eql(['a', 'b', 'c', 'e', 'g']);
+			expect(findNeighbors(grid)(1, 1)).to.eql(['a', 'b', 'c', 'e', 'g']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on left edge", () => {
@@ -94,7 +94,7 @@ describe("Game: the game core", () => {
 				['T', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'l']
 			]
-			expect(findNeighbors(grid, 1, 0)).to.eql(['a', 'b', 'f', 'i', 'j']);
+			expect(findNeighbors(grid)(1, 0)).to.eql(['a', 'b', 'f', 'i', 'j']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on right edge", () => {
@@ -104,7 +104,7 @@ describe("Game: the game core", () => {
 				['i', 'j', 'k', 'l'],
 				['m', 'n', 'o', 'p']
 			]
-			expect(findNeighbors(grid, 1, 3)).to.eql(['c', 'd', 'g', 'k', 'l']);
+			expect(findNeighbors(grid)(1, 3)).to.eql(['c', 'd', 'g', 'k', 'l']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is in the middle", () => {
@@ -114,9 +114,15 @@ describe("Game: the game core", () => {
 				['i', 'j', 'k', 'l'],
 				['m', 'n', 'o', 'p']
 			]
-			expect(findNeighbors(grid, 1, 1)).to.eql(['a', 'b', 'c', 'e', 'g', 'i', 'j', 'k']);
+			expect(findNeighbors(grid)(1, 1)).to.eql(['a', 'b', 'c', 'e', 'g', 'i', 'j', 'k']);
 		})
 
 	})
 
+	describe("countAlive", () => {
+		it("should give the number of cells alive for the given cell list", () => {
+			const cells = [true, false, true, true, false, false, false, true];
+			expect(countAlive(cells)).to.equal(4)
+		})
+	})
 })
