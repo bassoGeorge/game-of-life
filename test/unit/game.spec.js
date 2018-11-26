@@ -1,22 +1,22 @@
 import {expect} from './helpers/chai-plugged-in'
-import {findNeighbors, getNeighborsInCol} from '../../src/game'
+import {countAlive, findNeighbors, getNeighborsInCol} from '../../src/game'
 
 describe("Game: the game core", () => {
 
 	describe("getNeighborsInCol", () => {
 
 		it("should get the neighbors of the given cell for a column when item at start", () => {
-			const col = ['a', 'b', 'c']
+			const col = ['T', 'b', 'c']
 			expect(getNeighborsInCol(true)(col, 0)).to.eql(['b'])
 		})
 
-		it("should get the neighbors of the given cell for a column when the item is end", () => {
-			const col = ['a', 'b', 'c', 'd']
+		it("should get the neighbors of the given cell for a column when the item is at the end", () => {
+			const col = ['a', 'b', 'c', 'T']
 			expect(getNeighborsInCol(true)(col, 3)).to.eql(['c']);
 		})
 
-		it("should get the neighbors of the given cell for a column when the item is end", () => {
-			const col = ['a', 'b', 'c', 'd']
+		it("should get the neighbors of the given cell for a column when the item is in the middle", () => {
+			const col = ['a', 'b', 'T', 'd']
 			expect(getNeighborsInCol(true)(col, 2)).to.eql(['b', 'd']);
 		})
 
@@ -42,7 +42,7 @@ describe("Game: the game core", () => {
 
 		it("should get the neighbors of the given cell for grid when the item is on top left corner", () => {
 			const grid = [
-				['a', 'b', 'c'],
+				['T', 'b', 'c'],
 				['e', 'f', 'g']
 			]
 			expect(findNeighbors(grid, 0, 0)).to.eql(['b', 'e', 'f']);
@@ -50,7 +50,7 @@ describe("Game: the game core", () => {
 
 		it("should get the neighbors of the given cell for grid when the item is on top right corner", () => {
 			const grid = [
-				['a', 'b', 'c', 'd'],
+				['a', 'b', 'c', 'T'],
 				['e', 'f', 'g', 'h']
 			]
 			expect(findNeighbors(grid, 0, 3)).to.eql(['c', 'g', 'h']);
@@ -58,7 +58,7 @@ describe("Game: the game core", () => {
 
 		it("should get the neighbors of the given cell for grid when the item is on top edge", () => {
 			const grid = [
-				['a', 'b', 'c', 'd'],
+				['a', 'T', 'c', 'd'],
 				['e', 'f', 'g', 'h']
 			]
 			expect(findNeighbors(grid, 0, 1)).to.eql(['a', 'c', 'e', 'f', 'g']);
@@ -67,7 +67,7 @@ describe("Game: the game core", () => {
 		it("should get the neighbors of the given cell for grid when the item is on bottom left corner", () => {
 			const grid = [
 				['a', 'b', 'c'],
-				['e', 'f', 'g']
+				['T', 'f', 'g']
 			]
 			expect(findNeighbors(grid, 1, 0)).to.eql(['a', 'b', 'f']);
 		})
@@ -75,7 +75,7 @@ describe("Game: the game core", () => {
 		it("should get the neighbors of the given cell for grid when the item is on bottom right corner", () => {
 			const grid = [
 				['a', 'b', 'c', 'd'],
-				['e', 'f', 'g', 'h']
+				['e', 'f', 'g', 'T']
 			]
 			expect(findNeighbors(grid, 1, 3)).to.eql(['c', 'd', 'g']);
 		})
@@ -83,7 +83,7 @@ describe("Game: the game core", () => {
 		it("should get the neighbors of the given cell for grid when the item is on bottom edge", () => {
 			const grid = [
 				['a', 'b', 'c', 'd'],
-				['e', 'f', 'g', 'h']
+				['e', 'T', 'g', 'h']
 			]
 			expect(findNeighbors(grid, 1, 1)).to.eql(['a', 'b', 'c', 'e', 'g']);
 		})
@@ -91,7 +91,7 @@ describe("Game: the game core", () => {
 		it("should get the neighbors of the given cell for grid when the item is on left edge", () => {
 			const grid = [
 				['a', 'b', 'c', 'd'],
-				['e', 'f', 'g', 'h'],
+				['T', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'l']
 			]
 			expect(findNeighbors(grid, 1, 0)).to.eql(['a', 'b', 'f', 'i', 'j']);
@@ -100,7 +100,7 @@ describe("Game: the game core", () => {
 		it("should get the neighbors of the given cell for grid when the item is on right edge", () => {
 			const grid = [
 				['a', 'b', 'c', 'd'],
-				['e', 'f', 'g', 'h'],
+				['e', 'f', 'g', 'T'],
 				['i', 'j', 'k', 'l'],
 				['m', 'n', 'o', 'p']
 			]
@@ -110,7 +110,7 @@ describe("Game: the game core", () => {
 		it("should get the neighbors of the given cell for grid when the item is in the middle", () => {
 			const grid = [
 				['a', 'b', 'c', 'd'],
-				['e', 'f', 'g', 'h'],
+				['e', 'T', 'g', 'h'],
 				['i', 'j', 'k', 'l'],
 				['m', 'n', 'o', 'p']
 			]
