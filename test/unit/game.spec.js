@@ -1,5 +1,5 @@
 import {expect} from './helpers/chai-plugged-in'
-import {countAlive, findNeighbors, getNeighborsInCol} from '../../src/game'
+import {countAlive, findNeighbors, getNeighborsInCol, shouldGridCellLive} from '../../src/game'
 
 describe("Game: the game core", () => {
 
@@ -124,5 +124,104 @@ describe("Game: the game core", () => {
 			const cells = [true, false, true, true, false, false, false, true];
 			expect(countAlive(cells)).to.equal(4)
 		})
+	})
+
+	describe("shouldGridCellLive", () => {
+		it("should decide that a live cell with fewer than two live neighbors dies (underpopulation)", () => {
+			const grid          = [
+				[false, false, false],
+				[false, true, false],
+				[false, false, false]
+			]
+			const shouldLive = shouldGridCellLive(grid);
+
+			expect(shouldLive(1,1)).to.be.false;
+			grid[0][1] = true;
+			expect(shouldLive(1,1)).to.be.false;
+		})
+
+		it("should decide that a live cell with more than three live neighbors dies (overpopulation)", () => {
+			const grid          = [
+				[true, true, false],
+				[true, true, false],
+				[true, false, false]
+			]
+			const shouldLive = shouldGridCellLive(grid);
+
+			expect(shouldLive(1,1)).to.be.false;
+			grid[1][2] = true;
+			expect(shouldLive(1,1)).to.be.false;
+			grid[2][1] = true;
+			expect(shouldLive(1,1)).to.be.false;
+			grid[2][2] = true;
+			expect(shouldLive(1,1)).to.be.false;
+		})
+
+		it("should decide that a live cell with two or three live neighbors lives on", () => {
+			const grid          = [
+				[true, false, false],
+				[false, true, false],
+				[false, false, true]
+			]
+			const shouldLive = shouldGridCellLive(grid);
+
+			expect(shouldLive(1,1)).to.be.true;
+			grid[2][0] = true;
+			expect(shouldLive(1,1)).to.be.true;
+		})
+
+
+		it("should decide that a dead cell with exactly three live neighbors becomes a live cell", () => {
+			const grid          = [
+				[true, false, false],
+				[true, false, false],
+				[false, false, true]
+			]
+			const shouldLive = shouldGridCellLive(grid);
+
+			expect(shouldLive(1,1)).to.be.true;
+
+		})
+
+		it("should decide that a dead cell with less than three live neighbors remains dead", () => {
+			const grid          = [
+				[false, false, false],
+				[true, false, false],
+				[false, false, true]
+			]
+			const shouldLive = shouldGridCellLive(grid);
+			expect(shouldLive(1,1)).to.be.false;
+
+			grid[1][1] = false;
+			expect(shouldLive(1,1)).to.be.false;
+
+			grid[2][2] = false;
+			expect(shouldLive(1,1)).to.be.false;
+
+		})
+
+		it("should decide that a dead cell with more than three live neighbors remains dead", () => {
+			const grid          = [
+				[true, true, true],
+				[true, false, false],
+				[false, false, false]
+			]
+			const shouldLive = shouldGridCellLive(grid);
+			expect(shouldLive(1,1)).to.be.false;
+
+			grid[1][2] = true;
+			expect(shouldLive(1,1)).to.be.false;
+			grid[2][0] = true;
+			expect(shouldLive(1,1)).to.be.false;
+			grid[2][1] = true;
+			expect(shouldLive(1,1)).to.be.false;
+			grid[2][2] = true;
+			expect(shouldLive(1,1)).to.be.false;
+
+		})
+
+
+
+
 	})
 })

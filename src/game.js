@@ -5,6 +5,8 @@
  */
 
 export const isAlive = cell => cell // So that if the cell format changes in the future, we can work with that
+export const deadCell = () => false;
+export const liveCell = () => true;
 
 export const getNeighborsInCol = isItemInCol => (col, y) => {
 	const neighbors = [];
@@ -26,3 +28,10 @@ export const findNeighbors = grid => (x, y) => {
 }
 
 export const countAlive = cells => cells.reduce((acc, i) => acc + isAlive(i), 0); // we rely on Boolean to integer conversion
+
+export const shouldGridCellLive = grid => (x, y) => {
+	const liveNeighborCount = countAlive(findNeighbors(grid)(x,y))
+
+	// Short logic for the rules for cell lives
+	return liveNeighborCount === 3 || (isAlive(grid[x][y]) && liveNeighborCount === 2)
+}
