@@ -4,6 +4,8 @@
 	The grid system is transposed so that it is an array of columns
  */
 
+import {cloneGrid} from './utils/utils'
+
 export const isAlive  = cell => cell // So that if the cell format changes in the future, we can work with that
 export const deadCell = () => false;
 export const liveCell = () => true;
@@ -57,7 +59,7 @@ export function* playGameOfLife_gen(startingGrid) {
 
 	let fn = grid => {
 		fn = calculateNextGeneration
-		return grid.map(col => [...col]) // Just a clone for the first time
+		return cloneGrid(grid) // Just a clone for the first time
 	}
 
 	let currentGrid = startingGrid;

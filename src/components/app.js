@@ -2,38 +2,43 @@ import React, {Fragment} from 'react'
 import {Cell} from './cell'
 import playGameOfLife from '../game'
 import {GAME_SPEED_INTERVAL} from '../utils/constants'
-import {spaceShip} from '../utils/game-configurations'
+import {generateRandomGrid} from '../utils/game-configurations'
 
 export class App extends React.Component {
 	constructor(props) {
 
 		super(props);
 		this.state = {
-			grid: spaceShip
+			isGameRunning: false
 		}
 
 		this.gameTimer = null;
-		this.game      = playGameOfLife(this.state.grid);
 		this.startGame = this.startGame.bind(this);
 		this.stopGame  = this.stopGame.bind(this);
 		this.run       = this.run.bind(this);
 	}
 
+	componentDidMount() {
+		this.props.setInitialGrid(generateRandomGrid(50, 80));
+	}
+
+
 	startGame() {
-		if (this.gameTimer !== null) return;
+		if (this.state.isGameRunning) return;
+		this.setState({isGameRunning: true});
+		this.game = playGameOfLife(this.props.grid);
 		this.run()
 		this.gameTimer = setInterval(this.run, GAME_SPEED_INTERVAL)
 	}
 
 	stopGame() {
 		clearInterval(this.gameTimer);
+		this.setState({isGameRunning: false});
 		this.gameTimer = null;
 	}
 
 	run() {
-		this.setState({
-			grid: this.game()
-		});
+		this.props.setCurrentGrid(this.game())
 	}
 
 	render() {
@@ -42,7 +47,7 @@ export class App extends React.Component {
 				<h1>Conway's Game of Life</h1>
 				<div className="app-container">
 					<div className="game-grid">
-						{this.state.grid.map(row => <div className="game-grid__row">
+						{this.props.grid.map(row => <div className="game-grid__row">
 							{row.map(cellState => <Cell isAlive={cellState}/>)}
 						</div>)}
 					</div>

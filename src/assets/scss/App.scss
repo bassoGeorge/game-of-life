@@ -7,7 +7,7 @@ body {
 	padding: 20px;
 }
 
-$cellSize: 40px;
+$cellSize: 10px;
 
 // Dirty styling
 .app-container {
@@ -26,15 +26,18 @@ $cellSize: 40px;
 }
 
 .cell {
-	border: 1px solid black;
-	padding: $cellSize / 10;
+	border: 1px solid #eee;
+	//padding: $cellSize / 10;
 	height: $cellSize;
 	width: $cellSize;
 	.cell__dot {
-		border-radius: 50%;
+		//border-radius: 50%;
 		background-color: darkslategrey;
 		height: 100%;
 		width: 100%;
+	}
+	&.cell--alive {
+		border: 1px solid darkslategray;
 	}
 	&.cell--dead {
 		.cell__dot {
