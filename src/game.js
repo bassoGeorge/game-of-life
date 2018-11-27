@@ -47,14 +47,6 @@ export const calculateNextGeneration = grid => {
 	);
 }
 
-export function* playGameOfLife_(startingGrid) {
-	let currentGrid = startingGrid.map(col => [...col]); // Just a clone for the first one
-	while (true) {
-		yield currentGrid;
-		currentGrid = calculateNextGeneration(currentGrid);
-	}
-}
-
 /* And now, ladies and gentlemen, put your hands together for the main act of the night!
 * Just for the fun of it, have used a es6 generator variant and the regular closure variant
 * */

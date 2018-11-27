@@ -1,54 +1,33 @@
 import React, {Fragment} from 'react'
 import {Cell} from './cell'
 import playGameOfLife from '../game'
+import {GAME_SPEED_INTERVAL} from '../utils/constants'
+import {spaceShip} from '../utils/game-configurations'
 
-const spaceShipSetting = [
-	[false, false, true, false, false, false, false, false, false, false],
-	[true, false, true, false, false, false, false, false, false, false],
-	[false, true, true, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-]
-
-const randomGrid = [
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-	[false, true , true , true , false, false, false, false, false, false],
-	[false, false, false, true , false, false, false, false, false, false],
-	[true , false, true , false, false, false, true , true , false, false],
-	[true , false, false, false, false, false, true , true , false, false],
-	[false, true , true , true , false, false, false, false, true , true ],
-	[false, false, true , false, false, false, false, false, true , true ],
-	[false, false, true , true , false, false, false, false, false, false],
-	[false, false, false, false, false, false, false, false, false, false],
-]
 export class App extends React.Component {
 	constructor(props) {
 
 		super(props);
 		this.state = {
-			grid: randomGrid
+			grid: spaceShip
 		}
 
 		this.gameTimer = null;
-		this.game = playGameOfLife(this.state.grid);
+		this.game      = playGameOfLife(this.state.grid);
 		this.startGame = this.startGame.bind(this);
-		this.stopGame = this.stopGame.bind(this);
-		this.run = this.run.bind(this);
+		this.stopGame  = this.stopGame.bind(this);
+		this.run       = this.run.bind(this);
 	}
 
 	startGame() {
+		if (this.gameTimer !== null) return;
 		this.run()
-		this.gameTimer = setInterval(this.run, 100)
+		this.gameTimer = setInterval(this.run, GAME_SPEED_INTERVAL)
 	}
 
 	stopGame() {
 		clearInterval(this.gameTimer);
+		this.gameTimer = null;
 	}
 
 	run() {
