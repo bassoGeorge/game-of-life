@@ -1,1 +1,1 @@
-export const GAME_SPEED_INTERVAL = 100
+export const GAME_SPEED_INTERVAL = 0

@@ -4,7 +4,9 @@ import {Provider} from 'react-redux'
 
 import "./assets/scss/App.scss"
 import App from './containers/app'
-import {store} from './store'
+import {configureStore} from './store'
+
+const store = configureStore();
 
 const wrapper = document.getElementById("app")
 wrapper && ReactDOM.render(

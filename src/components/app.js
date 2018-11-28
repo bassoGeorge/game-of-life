@@ -26,14 +26,17 @@ export class App extends React.Component {
 	startGame() {
 		if (this.state.isGameRunning) return;
 		this.setState({isGameRunning: true});
+		//this.props.startGame();
 		this.game = playGameOfLife(this.props.grid);
 		this.run()
 		this.gameTimer = setInterval(this.run, GAME_SPEED_INTERVAL)
 	}
 
 	stopGame() {
-		clearInterval(this.gameTimer);
 		this.setState({isGameRunning: false});
+		//this.props.endGame();
+
+		clearInterval(this.gameTimer);
 		this.gameTimer = null;
 	}
 
@@ -47,8 +50,8 @@ export class App extends React.Component {
 				<h1>Conway's Game of Life</h1>
 				<div className="app-container">
 					<div className="game-grid">
-						{this.props.grid.map(row => <div className="game-grid__row">
-							{row.map(cellState => <Cell isAlive={cellState}/>)}
+						{this.props.grid.map((row, i) => <div className="game-grid__row" key={i}>
+							{row.map((cellState, j) => <Cell isAlive={cellState} key={j}/>)}
 						</div>)}
 					</div>
 					<div className="game-controls">
