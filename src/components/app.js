@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import {Cell} from './cell'
 import playGameOfLife from '../game'
 import {GAME_SPEED_INTERVAL} from '../utils/constants'
-import {generateRandomGrid} from '../utils/game-configurations'
+import {spaceShip} from '../utils/game-configurations'
 
 export class App extends React.Component {
 	constructor(props) {
@@ -19,14 +19,15 @@ export class App extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.setInitialGrid(generateRandomGrid(50, 80));
+		//this.props.setInitialGrid(generateRandomGrid(50, 80));
+		this.props.setInitialGrid(spaceShip);
 	}
 
 
 	startGame() {
 		if (this.state.isGameRunning) return;
 		this.setState({isGameRunning: true});
-		this.game = playGameOfLife(this.props.grid);
+		this.game = playGameOfLife(false)(this.props.grid);
 		this.run()
 		this.gameTimer = setInterval(this.run, GAME_SPEED_INTERVAL)
 	}
