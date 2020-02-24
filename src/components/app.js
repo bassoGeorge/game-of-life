@@ -2,7 +2,39 @@ import React, {Fragment} from 'react'
 import {Cell} from './cell'
 import playGameOfLife from '../game'
 import {GAME_SPEED_INTERVAL} from '../utils/constants'
-import {spaceShip} from '../utils/game-configurations'
+import {generateRandomGrid, spaceShip} from '../utils/game-configurations'
+import GlobalStyles from './GlobalStyles'
+import styled from 'styled-components'
+
+const AppContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`
+
+const GameGrid = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const GameGridRow = styled.div`
+	display: flex;
+	flex-grow: 1;
+`
+
+const GameControls = styled.div`
+	margin-top: 40px;
+	display: flex;
+	width: 100%;
+`
+
+const GameControlButton = styled.button`
+	font-size: 20px;
+	border: 1px solid darkslategrey;
+	background: none;
+	padding: 16px 40px;
+	flex-grow: 1;
+`
 
 export class App extends React.Component {
 	constructor(props) {
@@ -19,8 +51,8 @@ export class App extends React.Component {
 	}
 
 	componentDidMount() {
-		//this.props.setInitialGrid(generateRandomGrid(50, 80));
-		this.props.setInitialGrid(spaceShip);
+		this.props.setInitialGrid(generateRandomGrid(40, 80));
+		//this.props.setInitialGrid(spaceShip);
 	}
 
 
@@ -45,18 +77,19 @@ export class App extends React.Component {
 	render() {
 		return (
 			<Fragment>
+				<GlobalStyles/>
 				<h1>Conway's Game of Life</h1>
-				<div className="app-container">
-					<div className="game-grid">
-						{this.props.grid.map(row => <div className="game-grid__row">
+				<AppContainer>
+					<GameGrid>
+						{this.props.grid.map(row => <GameGridRow>
 							{row.map(cellState => <Cell isAlive={cellState}/>)}
-						</div>)}
-					</div>
-					<div className="game-controls">
-						<button onClick={this.startGame}>Start</button>
-						<button onClick={this.stopGame}>Stop</button>
-					</div>
-				</div>
+						</GameGridRow>)}
+					</GameGrid>
+					<GameControls>
+						<GameControlButton onClick={this.startGame}>Start</GameControlButton>
+						<GameControlButton onClick={this.stopGame}>Stop</GameControlButton>
+					</GameControls>
+				</AppContainer>
 			</Fragment>
 		)
 	}

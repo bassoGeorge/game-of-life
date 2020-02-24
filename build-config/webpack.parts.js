@@ -66,20 +66,6 @@ exports.loadCSS = ({include, exclude} = {}) => ({
 });
 
 
-exports.loadSASS = ({include, exclude} = {}) => ({
-	module: {
-		rules: [
-			{
-				test: /\.scss$/,
-				include,
-				exclude,
-				use : ["style-loader", "css-loader", "sass-loader"],
-			}
-		]
-	}
-})
-
-
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 exports.extractCSS = ({include, exclude, use = ['css-loader'], test = /\.css$/} = {}) => {
