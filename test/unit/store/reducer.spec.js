@@ -1,4 +1,3 @@
-import {expect} from '../helpers/chai-plugged-in'
 import {SET_CURRENT_GRID, SET_INITIAL_GRID} from '../../../src/store/actions'
 import reducer from '../../../src/store/reducer'
 
@@ -9,7 +8,7 @@ describe("Reducer", () => {
 	}
 
 	it("should return the initial state when setup", () => {
-		expect(reducer(defaultState, {type: null})).to.equal(defaultState)
+		expect(reducer(defaultState, {type: null})).toEqual(defaultState)
 	})
 
 	it("should handle SET_INITIAL_GRID by saving the given initialGrid to state", () => {
@@ -25,7 +24,7 @@ describe("Reducer", () => {
 		      },
 		      expectedState = {...defaultState, initialGrid: grid, currentGrid: grid}
 
-		expect(reducer(defaultState, action)).to.eql(expectedState)
+		expect(reducer(defaultState, action)).toEqual(expectedState)
 	})
 
 	it("should handle SET_CURRENT_GRID by saving the given currentGrid to state", () => {
@@ -41,7 +40,7 @@ describe("Reducer", () => {
 		      },
 		      expectedState = {...defaultState, currentGrid: grid}
 
-		expect(reducer(defaultState, action)).to.eql(expectedState)
+		expect(reducer(defaultState, action)).toEqual(expectedState)
 	})
 
 

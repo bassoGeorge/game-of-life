@@ -1,4 +1,3 @@
-import {expect} from './helpers/chai-plugged-in'
 import {
 	calculateNextGeneration,
 	countAlive,
@@ -15,54 +14,54 @@ describe("Game: the game core", () => {
 
 		it("should get the neighbors of the given cell for a column when item at start", () => {
 			const col = ['T', 'b', 'c']
-			expect(getNeighborsInCol(true)(true)(col, 0)).to.eql(['b'])
+			expect(getNeighborsInCol(true)(true)(col, 0)).toEqual(['b'])
 		})
 
 		it("should get the neighbors of the given cell in infinite grid for a column when item at start", () => {
 			const col = ['T', 'b', 'c']
-			expect(getNeighborsInCol(true)(false)(col, 0)).to.eql(['c', 'b'])
+			expect(getNeighborsInCol(true)(false)(col, 0)).toEqual(['c', 'b'])
 		})
 
 		it("should get the neighbors of the given cell for a column when the item is at the end", () => {
 			const col = ['a', 'b', 'c', 'T']
-			expect(getNeighborsInCol(true)(true)(col, 3)).to.eql(['c']);
+			expect(getNeighborsInCol(true)(true)(col, 3)).toEqual(['c']);
 		})
 
 		it("should get the neighbors of the given cell in infinite grid for a column when the item is at the end", () => {
 			const col = ['a', 'b', 'c', 'T']
-			expect(getNeighborsInCol(true)(false)(col, 3)).to.eql(['c', 'a']);
+			expect(getNeighborsInCol(true)(false)(col, 3)).toEqual(['c', 'a']);
 		})
 
 		it("should get the neighbors of the given cell for a column when the item is in the middle", () => {
 			const col = ['a', 'b', 'T', 'd']
-			expect(getNeighborsInCol(true)(true)(col, 2)).to.eql(['b', 'd']);
-			expect(getNeighborsInCol(true)(false)(col, 2)).to.eql(['b', 'd']);
+			expect(getNeighborsInCol(true)(true)(col, 2)).toEqual(['b', 'd']);
+			expect(getNeighborsInCol(true)(false)(col, 2)).toEqual(['b', 'd']);
 		})
 
 		it("should get the neighbors of the given cell for a column when item is parallel to start", () => {
 			const col = ['a', 'b', 'c']
-			expect(getNeighborsInCol(false)(true)(col, 0)).to.eql(['a', 'b'])
+			expect(getNeighborsInCol(false)(true)(col, 0)).toEqual(['a', 'b'])
 		})
 
 		it("should get the neighbors of the given cell in infinite grid for a column when item is parallel to start", () => {
 			const col = ['a', 'b', 'c']
-			expect(getNeighborsInCol(false)(false)(col, 0)).to.eql(['c', 'a', 'b'])
+			expect(getNeighborsInCol(false)(false)(col, 0)).toEqual(['c', 'a', 'b'])
 		})
 
 		it("should get the neighbors of the given cell for a column when the item is parallel to the end", () => {
 			const col = ['a', 'b', 'c', 'd']
-			expect(getNeighborsInCol(false)(true)(col, 3)).to.eql(['c', 'd']);
+			expect(getNeighborsInCol(false)(true)(col, 3)).toEqual(['c', 'd']);
 		})
 
 		it("should get the neighbors of the given cell in infinite grid for a column when the item is parallel to the end", () => {
 			const col = ['a', 'b', 'c', 'd']
-			expect(getNeighborsInCol(false)(false)(col, 3)).to.eql(['c', 'd', 'a']);
+			expect(getNeighborsInCol(false)(false)(col, 3)).toEqual(['c', 'd', 'a']);
 		})
 
 		it("should get the neighbors of the given cell for a column when the item is parallel to the middle", () => {
 			const col = ['a', 'b', 'c', 'd']
-			expect(getNeighborsInCol(false)(true)(col, 2)).to.eql(['b', 'c', 'd']);
-			expect(getNeighborsInCol(false)(false)(col, 2)).to.eql(['b', 'c', 'd']);
+			expect(getNeighborsInCol(false)(true)(col, 2)).toEqual(['b', 'c', 'd']);
+			expect(getNeighborsInCol(false)(false)(col, 2)).toEqual(['b', 'c', 'd']);
 		})
 
 	})
@@ -74,7 +73,7 @@ describe("Game: the game core", () => {
 				['T', 'b', 'c'],
 				['e', 'f', 'g']
 			]
-			expect(findNeighbors(true)(grid)(0, 0)).to.eql(['b', 'e', 'f']);
+			expect(findNeighbors(true)(grid)(0, 0)).toEqual(['b', 'e', 'f']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on top left corner", () => {
@@ -83,7 +82,7 @@ describe("Game: the game core", () => {
 				['e', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'l']
 			]
-			expect(findNeighbors(false)(grid)(0, 0)).to.eql(['l', 'i', 'j', 'd', 'b', 'h', 'e', 'f']);
+			expect(findNeighbors(false)(grid)(0, 0)).toEqual(['l', 'i', 'j', 'd', 'b', 'h', 'e', 'f']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on top right corner", () => {
@@ -91,7 +90,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c', 'T'],
 				['e', 'f', 'g', 'h']
 			]
-			expect(findNeighbors(true)(grid)(0, 3)).to.eql(['c', 'g', 'h']);
+			expect(findNeighbors(true)(grid)(0, 3)).toEqual(['c', 'g', 'h']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on top right corner", () => {
@@ -100,7 +99,7 @@ describe("Game: the game core", () => {
 				['e', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'l']
 			]
-			expect(findNeighbors(false)(grid)(0, 3)).to.eql(['k', 'l', 'i', 'c', 'a', 'g', 'h', 'e']);
+			expect(findNeighbors(false)(grid)(0, 3)).toEqual(['k', 'l', 'i', 'c', 'a', 'g', 'h', 'e']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on top edge", () => {
@@ -108,7 +107,7 @@ describe("Game: the game core", () => {
 				['a', 'T', 'c', 'd'],
 				['e', 'f', 'g', 'h']
 			]
-			expect(findNeighbors(true)(grid)(0, 1)).to.eql(['a', 'c', 'e', 'f', 'g']);
+			expect(findNeighbors(true)(grid)(0, 1)).toEqual(['a', 'c', 'e', 'f', 'g']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on top edge", () => {
@@ -117,7 +116,7 @@ describe("Game: the game core", () => {
 				['e', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'l']
 			]
-			expect(findNeighbors(false)(grid)(0, 1)).to.eql(['i', 'j', 'k', 'a', 'c', 'e', 'f', 'g']);
+			expect(findNeighbors(false)(grid)(0, 1)).toEqual(['i', 'j', 'k', 'a', 'c', 'e', 'f', 'g']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on bottom left corner", () => {
@@ -125,7 +124,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c'],
 				['T', 'f', 'g']
 			]
-			expect(findNeighbors(true)(grid)(1, 0)).to.eql(['a', 'b', 'f']);
+			expect(findNeighbors(true)(grid)(1, 0)).toEqual(['a', 'b', 'f']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on bottom left corner", () => {
@@ -134,7 +133,7 @@ describe("Game: the game core", () => {
 				['e', 'f', 'g', 'h'],
 				['T', 'j', 'k', 'l']
 			]
-			expect(findNeighbors(false)(grid)(2, 0)).to.eql(['h', 'e', 'f', 'l', 'j', 'd', 'a', 'b']);
+			expect(findNeighbors(false)(grid)(2, 0)).toEqual(['h', 'e', 'f', 'l', 'j', 'd', 'a', 'b']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on bottom right corner", () => {
@@ -142,7 +141,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c', 'd'],
 				['e', 'f', 'g', 'T']
 			]
-			expect(findNeighbors(true)(grid)(1, 3)).to.eql(['c', 'd', 'g']);
+			expect(findNeighbors(true)(grid)(1, 3)).toEqual(['c', 'd', 'g']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on bottom right corner", () => {
@@ -151,7 +150,7 @@ describe("Game: the game core", () => {
 				['e', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'T']
 			]
-			expect(findNeighbors(false)(grid)(2, 3)).to.eql(['g', 'h', 'e', 'k', 'i', 'c', 'd', 'a']);
+			expect(findNeighbors(false)(grid)(2, 3)).toEqual(['g', 'h', 'e', 'k', 'i', 'c', 'd', 'a']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on bottom edge", () => {
@@ -159,7 +158,7 @@ describe("Game: the game core", () => {
 				['a', 'b', 'c', 'd'],
 				['e', 'T', 'g', 'h']
 			]
-			expect(findNeighbors(true)(grid)(1, 1)).to.eql(['a', 'b', 'c', 'e', 'g']);
+			expect(findNeighbors(true)(grid)(1, 1)).toEqual(['a', 'b', 'c', 'e', 'g']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on bottom edge", () => {
@@ -168,7 +167,7 @@ describe("Game: the game core", () => {
 				['e', 'f', 'g', 'h'],
 				['i', 'T', 'k', 'l']
 			]
-			expect(findNeighbors(false)(grid)(2, 1)).to.eql(['e', 'f', 'g', 'i', 'k', 'a', 'b', 'c']);
+			expect(findNeighbors(false)(grid)(2, 1)).toEqual(['e', 'f', 'g', 'i', 'k', 'a', 'b', 'c']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on left edge", () => {
@@ -177,7 +176,7 @@ describe("Game: the game core", () => {
 				['T', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'l']
 			]
-			expect(findNeighbors(true)(grid)(1, 0)).to.eql(['a', 'b', 'f', 'i', 'j']);
+			expect(findNeighbors(true)(grid)(1, 0)).toEqual(['a', 'b', 'f', 'i', 'j']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on left edge", () => {
@@ -186,7 +185,7 @@ describe("Game: the game core", () => {
 				['T', 'f', 'g', 'h'],
 				['i', 'j', 'k', 'l']
 			]
-			expect(findNeighbors(false)(grid)(1, 0)).to.eql(['d', 'a', 'b', 'h', 'f', 'l', 'i', 'j']);
+			expect(findNeighbors(false)(grid)(1, 0)).toEqual(['d', 'a', 'b', 'h', 'f', 'l', 'i', 'j']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is on right edge", () => {
@@ -196,7 +195,7 @@ describe("Game: the game core", () => {
 				['i', 'j', 'k', 'l'],
 				['m', 'n', 'o', 'p']
 			]
-			expect(findNeighbors(true)(grid)(1, 3)).to.eql(['c', 'd', 'g', 'k', 'l']);
+			expect(findNeighbors(true)(grid)(1, 3)).toEqual(['c', 'd', 'g', 'k', 'l']);
 		})
 
 		it("should get the neighbors of the given cell for infinite grid when the item is on right edge", () => {
@@ -206,7 +205,7 @@ describe("Game: the game core", () => {
 				['i', 'j', 'k', 'l'],
 				['m', 'n', 'o', 'p']
 			]
-			expect(findNeighbors(false)(grid)(1, 3)).to.eql(['c', 'd', 'a', 'g', 'e', 'k', 'l', 'i']);
+			expect(findNeighbors(false)(grid)(1, 3)).toEqual(['c', 'd', 'a', 'g', 'e', 'k', 'l', 'i']);
 		})
 
 		it("should get the neighbors of the given cell for grid when the item is in the middle", () => {
@@ -216,8 +215,8 @@ describe("Game: the game core", () => {
 				['i', 'j', 'k', 'l'],
 				['m', 'n', 'o', 'p']
 			]
-			expect(findNeighbors(true)(grid)(1, 1)).to.eql(['a', 'b', 'c', 'e', 'g', 'i', 'j', 'k']);
-			expect(findNeighbors(false)(grid)(1, 1)).to.eql(['a', 'b', 'c', 'e', 'g', 'i', 'j', 'k']);
+			expect(findNeighbors(true)(grid)(1, 1)).toEqual(['a', 'b', 'c', 'e', 'g', 'i', 'j', 'k']);
+			expect(findNeighbors(false)(grid)(1, 1)).toEqual(['a', 'b', 'c', 'e', 'g', 'i', 'j', 'k']);
 		})
 
 	})
@@ -225,7 +224,7 @@ describe("Game: the game core", () => {
 	describe("countAlive", () => {
 		it("should give the number of cells alive for the given cell list", () => {
 			const cells = [true, false, true, true, false, false, false, true];
-			expect(countAlive(cells)).to.equal(4)
+			expect(countAlive(cells)).toEqual(4)
 		})
 	})
 
@@ -238,9 +237,9 @@ describe("Game: the game core", () => {
 			]
 			const shouldLive = shouldGridCellLive(true)(grid);
 
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 			grid[0][1] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 		})
 
 		it("should decide that a live cell with more than three live neighbors dies (overpopulation)", () => {
@@ -251,13 +250,13 @@ describe("Game: the game core", () => {
 			]
 			const shouldLive = shouldGridCellLive(true)(grid);
 
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 			grid[1][2] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 			grid[2][1] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 			grid[2][2] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 		})
 
 		it("should decide that a live cell with two or three live neighbors lives on", () => {
@@ -268,9 +267,9 @@ describe("Game: the game core", () => {
 			]
 			const shouldLive = shouldGridCellLive(true)(grid);
 
-			expect(shouldLive(1, 1)).to.be.true;
+			expect(shouldLive(1, 1)).toBeTruthy();
 			grid[2][0] = true;
-			expect(shouldLive(1, 1)).to.be.true;
+			expect(shouldLive(1, 1)).toBeTruthy();
 		})
 
 		it("should decide that a dead cell with exactly three live neighbors becomes a live cell", () => {
@@ -281,7 +280,7 @@ describe("Game: the game core", () => {
 			]
 			const shouldLive = shouldGridCellLive(true)(grid);
 
-			expect(shouldLive(1, 1)).to.be.true;
+			expect(shouldLive(1, 1)).toBeTruthy();
 
 		})
 
@@ -292,13 +291,13 @@ describe("Game: the game core", () => {
 				[false, false, true]
 			]
 			const shouldLive = shouldGridCellLive(true)(grid);
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 
 			grid[1][1] = false;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 
 			grid[2][2] = false;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 
 		})
 
@@ -309,16 +308,16 @@ describe("Game: the game core", () => {
 				[false, false, false]
 			]
 			const shouldLive = shouldGridCellLive(true)(grid);
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 
 			grid[1][2] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 			grid[2][0] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 			grid[2][1] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 			grid[2][2] = true;
-			expect(shouldLive(1, 1)).to.be.false;
+			expect(shouldLive(1, 1)).toBeFalsy();
 
 		})
 
@@ -337,7 +336,7 @@ describe("Game: the game core", () => {
 				[false, false, false]
 			]
 
-			expect(calculateNextGeneration(true)(grid)).to.eql(expected)
+			expect(calculateNextGeneration(true)(grid)).toEqual(expected)
 		})
 	})
 
@@ -349,7 +348,7 @@ describe("Game: the game core", () => {
 			]
 
 			const iterator   = playGameOfLife_gen(startingGrid)
-			expect(iterator.next().value).to.eql(startingGrid);
+			expect(iterator.next().value).toEqual(startingGrid);
 		})
 
 		it("should return successive stages of the grid", () => {
@@ -376,7 +375,7 @@ describe("Game: the game core", () => {
 
 			const iterator = playGameOfLife_gen(startingGrid);
 			expectedStages.forEach(expectedStage => {
-				expect(iterator.next().value).to.eql(expectedStage);
+				expect(iterator.next().value).toEqual(expectedStage);
 			})
 		})
 
@@ -390,7 +389,7 @@ describe("Game: the game core", () => {
 			]
 
 			const gridStageGenerator = playGameOfLife(true)(startingGrid)
-			expect(gridStageGenerator()).to.eql(startingGrid);
+			expect(gridStageGenerator()).toEqual(startingGrid);
 		})
 
 		it("should return successive stages of the grid", () => {
@@ -417,7 +416,7 @@ describe("Game: the game core", () => {
 
 			const gridStageGenerator = playGameOfLife(true)(startingGrid);
 			expectedStages.forEach(expectedStage => {
-				expect(gridStageGenerator()).to.eql(expectedStage);
+				expect(gridStageGenerator()).toEqual(expectedStage);
 			})
 		})
 
